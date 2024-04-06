@@ -3,6 +3,7 @@ import { generateMockedProduct } from "../mocks/products.js";
 import CustomError from "../services/errors/CustomError.js";
 import EErrors from "../services/errors/enums.js";
 import { generateProductsError } from "../services/errors/info.js";
+import config from "../config/config.js";
 
 const getProducts = async (req, res) => {
   try {
@@ -119,7 +120,7 @@ const deleteProduct = async (req, res) => {
                     <p>Saludos</p>
                     `;
 
-      await mailingService.sendSimpleMail({ from: process.env.USER, to: product.payload.owner, subject: "Eliminación de Producto", html });
+      await mailingService.sendSimpleMail({ from: config.mailing.user, to: product.payload.owner, subject: "Eliminación de Producto", html });
     }
     const { status, payload } = await productsService.deleteProduct(pid);
     if (status === "success") {

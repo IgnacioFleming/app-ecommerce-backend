@@ -2,10 +2,11 @@ import jwt from "jsonwebtoken";
 import { mailingService } from "../services/index.js";
 import { userModel } from "../dao/models/user.model.js";
 import { createHash, isValidPassword } from "../utils.js";
+import config from "../config/config.js";
 
 const handleLogin = async (req, res) => {
   const { user } = req;
-  const token = jwt.sign(user, process.env.JWT_SECRET_KEY, {
+  const token = jwt.sign(user, config.passport.jwt_secret_key, {
     expiresIn: "1h",
   });
   res.cookie("sessionCookie", token, { maxAge: 3600000, httpOnly: true });
@@ -28,7 +29,7 @@ const handleGithubCallback = async (req, res) => {
   const { user } = req;
   const plainUser = user.toObject();
 
-  const token = jwt.sign(plainUser, process.env.JWT_SECRET_KEY, {
+  const token = jwt.sign(plainUser, config.passport.jwt_secret_key, {
     expiresIn: "1h",
   });
   res.cookie("sessionCookie", token, { maxAge: 3600000, httpOnly: true });
@@ -56,15 +57,15 @@ const sendEmailToRestorePass = async (req, res) => {
   const { email } = req.params;
   const user = await userModel.findOne({ email });
   if (!user) return res.status(400).send({ status: "error", error: "No se puede restablecer un usuario no registrado" });
-  const token = jwt.sign({ email }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
+  const token = jwt.sign({ email }, config.passport.jwt_secret_key, { expiresIn: "1h" });
   const message = `
   <p>Estimado Usuario,<br/><br/>
   Para dar curso al restablecimiento de su mail por favor hacer click en el siguiente boton:
   <p><br/><br/>
-  <a href="${process.env.URL}/restorePass/${token}"><button>Restablecer Contraseña</button></a>
+  <a href="${config.enviroment.url}/restorePass/${token}"><button>Restablecer Contraseña</button></a>
   `;
   const result = await mailingService.sendSimpleMail({
-    from: process.env.USER,
+    from: config.mailing.user,
     subject: "Restablece tu contraseña",
     to: email,
     html: message,

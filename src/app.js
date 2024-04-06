@@ -17,6 +17,7 @@ import { addLogger } from "./utils/logger.js";
 import loggerRouter from "./routes/logger.js";
 import swaggerUiExpress from "swagger-ui-express";
 import { specs } from "./config/swagger.js";
+import config from "./config/config.js";
 
 const PORT = process.env.PORT || 8080;
 const app = express();

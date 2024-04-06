@@ -1,6 +1,7 @@
 import UserDto from "../dao/dto/user.dto.js";
 import { userModel } from "../dao/models/user.model.js";
 import { mailingService } from "../services/index.js";
+import config from "../config/config.js";
 
 const shiftUserRole = async (req, res) => {
   const { uid } = req.params;
@@ -62,7 +63,7 @@ const deleteInactiveUsers = async (req, res) => {
         <p>Espero sepa entender,<p/>
         <p>Saludos</p>
         `;
-        mailingService.sendSimpleMail({ from: process.env.USER, subject: "Eliminacion de cuenta inactiva", to: user.email, html: emailBody });
+        mailingService.sendSimpleMail({ from: config.mailing.user, subject: "Eliminacion de cuenta inactiva", to: user.email, html: emailBody });
         await userModel.findByIdAndDelete(user._id);
         return user._id;
       }
