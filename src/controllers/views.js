@@ -1,6 +1,5 @@
 import { ticketModel } from "../dao/models/ticket.model.js";
-import { userModel } from "../dao/models/user.model.js";
-import { cartsService, productsService } from "../services/index.js";
+import { cartsService, productsService, userService } from "../services/index.js";
 const renderHome = (req, res) => {
   res.render("home", {});
 };
@@ -11,7 +10,7 @@ const renderRealTimeProducts = (req, res) => {
 
 const renderChat = (req, res) => {
   req.logger.warning("Acceso concedido a chat. Ruta privada");
-  res.render("chat", {});
+  res.render("chat", { userId: req.user.email });
 };
 
 const renderProducts = async (req, res) => {
@@ -118,12 +117,12 @@ const restorePass = async (req, res) => {
 };
 
 const userHandler = async (req, res) => {
-  const users = await userModel.find().lean();
+  const users = await userService.get().lean();
   res.render("users", {
-    users,
+    users: users.payload,
     style: "users.css",
     delete: async (id) => {
-      await userModel.findByIdAndDelete(id);
+      await userService.delete(id);
     },
   });
 };

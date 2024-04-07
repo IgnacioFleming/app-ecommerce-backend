@@ -1,27 +1,26 @@
 import UserDto from "../dao/dto/user.dto.js";
-import { userModel } from "../dao/models/user.model.js";
-import { mailingService } from "../services/index.js";
+import { mailingService, userService } from "../services/index.js";
 import config from "../config/config.js";
 
 const shiftUserRole = async (req, res) => {
   const { uid } = req.params;
-  const user = await userModel.findById(uid);
-  if (!user) return res.status(400).send({ status: "error", error: "El usuario no existe en la base o no es posible modificar su rol" });
+  const user = await userService.getById(uid);
+  if (!user.payload) return res.status(400).send({ status: "error", error: "El usuario no existe en la base o no es posible modificar su rol" });
   const premiumRequiredDocs = ["id", "address", "accountStatement"];
-  if (user.role === "usuario") {
+  if (user.payload.role === "usuario") {
     const docsValidation = premiumRequiredDocs.every((name) => {
-      return user.documents.some((doc) => doc.name === name);
+      return user.payload.documents.some((doc) => doc.name === name);
     });
     if (docsValidation) {
-      user.role = "premium";
+      user.payload.role = "premium";
     } else {
       return res.status(400).send({ status: "error", error: "El usuario no registró los documentos necesarios para ser Premium" });
     }
   } else {
-    user.role = "usuario";
+    user.payload.role = "usuario";
   }
-  const result = await userModel.updateOne({ _id: uid }, user);
-  res.send({ status: "success", payload: `Se cambió el rol del usuario a '${user.role}'` });
+  const result = await userService.update({ _id: uid }, user.payload);
+  res.send({ status: "success", payload: `Se cambió el rol del usuario a '${user.payload.role}'` });
 };
 
 const uploadDocuments = async (req, res) => {
@@ -37,7 +36,7 @@ const uploadDocuments = async (req, res) => {
       });
     });
 
-    await userModel.updateOne({ email: req.user.email }, { $push: { documents } });
+    await userService.update({ email: req.user.email }, { $push: { documents } });
     res.send({ status: "success", payload: "Los documentos fueron cargados exitosamente" });
   } catch (error) {
     res.status(500).send({ status: "error", description: error.toString() });
@@ -45,17 +44,17 @@ const uploadDocuments = async (req, res) => {
 };
 
 const getAllUsers = async (req, res) => {
-  const users = await userModel.find();
-  const usersDTO = users.map((user) => new UserDto(user));
+  const users = await userService.get();
+  const usersDTO = users.payload.map((user) => new UserDto(user));
   res.send({ status: "success", payload: usersDTO });
 };
 
 const deleteInactiveUsers = async (req, res) => {
-  const users = await userModel.find();
-  if (users.length === 0) return res.status(400).send({ status: "error", payload: "No se encontraron usuarios" });
+  const users = await userServide.get();
+  if (users.payload.length === 0) return res.status(400).send({ status: "error", payload: "No se encontraron usuarios" });
   const limitDate = Date.now() - 3600 * 1000 * 48;
   let deletedUsers = await Promise.all(
-    users.map(async (user) => {
+    users.payload.map(async (user) => {
       if (Date.parse(user.last_connection) <= limitDate) {
         const emailBody = `
         <p>Estimado ${user.first_name}<p>
@@ -64,7 +63,7 @@ const deleteInactiveUsers = async (req, res) => {
         <p>Saludos</p>
         `;
         mailingService.sendSimpleMail({ from: config.mailing.user, subject: "Eliminacion de cuenta inactiva", to: user.email, html: emailBody });
-        await userModel.findByIdAndDelete(user._id);
+        await userService.delete(user._id);
         return user._id;
       }
       return null;
@@ -77,7 +76,7 @@ const deleteInactiveUsers = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   const { id } = req.params;
-  const result = await userModel.findByIdAndDelete(id);
+  const result = await userService.delete(id);
   res.send({ status: "success", payload: "Usuario eliminado correctamente" });
 };
 

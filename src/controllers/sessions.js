@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
-import { mailingService } from "../services/index.js";
-import { userModel } from "../dao/models/user.model.js";
+import { mailingService, userService } from "../services/index.js";
 import { createHash, isValidPassword } from "../utils.js";
 import config from "../config/config.js";
 
@@ -49,14 +48,14 @@ const handleFailedRegister = async (req, res) => {
 };
 
 const handleLogout = async (req, res) => {
-  const user = await userModel.updateOne({ email: req.user.email }, { $set: { last_connection: Date() } });
+  const updateUserLastConnection = await userService.update({ email: req.user.email }, { $set: { last_connection: Date() } });
   res.clearCookie("sessionCookie").redirect("/login");
 };
 
 const sendEmailToRestorePass = async (req, res) => {
   const { email } = req.params;
-  const user = await userModel.findOne({ email });
-  if (!user) return res.status(400).send({ status: "error", error: "No se puede restablecer un usuario no registrado" });
+  const user = await userService.getOne({ email });
+  if (!user.payload) return res.status(400).send({ status: "error", error: "No se puede restablecer un usuario no registrado" });
   const token = jwt.sign({ email }, config.passport.jwt_secret_key, { expiresIn: "1h" });
   const message = `
   <p>Estimado Usuario,<br/><br/>
@@ -76,14 +75,14 @@ const sendEmailToRestorePass = async (req, res) => {
 const restorePass = async (req, res) => {
   if (!req.user) return res.status(400).send({ status: "error", error: "Solicitud inválida, token de autenticacion faltante." });
   const { email } = req.user;
-  const user = await userModel.findOne({ email }).lean();
-  if (!user) return res.status(400).send({ status: "error", error: "Correo de origen inválido" });
+  const user = await userService.getOne({ email }).lean();
+  if (!user.payload) return res.status(400).send({ status: "error", error: "Correo de origen inválido" });
   const { password } = req.body;
-  const validation = await isValidPassword(password, user);
+  const validation = await isValidPassword(password, user.payload);
   if (validation) return res.status(400).send({ status: "error", error: "La contraseña no puede ser igual a la anterior" });
   const hashedNewPass = await createHash(password);
-  const updatedUser = { ...user, password: hashedNewPass };
-  const result = await userModel.updateOne({ _id: updatedUser._id }, updatedUser);
+  const updatedUser = { ...user.payload, password: hashedNewPass };
+  const result = await userService.update({ _id: updatedUser._id }, updatedUser);
   res.send({ status: "success", payload: "Se restableción con exito su contraseña" });
 };
 

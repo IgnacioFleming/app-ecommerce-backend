@@ -1,12 +1,11 @@
 import passport from "passport";
 import local from "passport-local";
-import { userModel } from "../dao/models/user.model.js";
 import { createHash, isValidPassword, cookieExtractor, tokenExtractor } from "../utils.js";
 import mongoose from "mongoose";
 import GitHubStrategy from "passport-github2";
 import jwt from "passport-jwt";
 import UserDto from "../dao/dto/user.dto.js";
-import { cartsService } from "../services/index.js";
+import { cartsService, userService } from "../services/index.js";
 import config from "./config.js";
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -19,8 +18,8 @@ const initializePassport = () => {
     new LocalStrategy({ passReqToCallback: true, usernameField: "email", session: false }, async (req, username, password, done) => {
       try {
         let data = req.body;
-        const user = await userModel.findOne({ email: username });
-        if (user) {
+        const user = await userService.getOne({ email: username });
+        if (user.payload) {
           return done(null, false);
         }
         data.password = await createHash(password);
@@ -28,8 +27,8 @@ const initializePassport = () => {
         data.last_connection = Date();
         const newCart = await cartsService.createCart();
         data.cart = newCart.payload._id;
-        const result = await userModel.create(data);
-        return done(null, result);
+        const result = await userService.create(data);
+        return done(null, result.payload);
       } catch (error) {
         return done(error);
       }
@@ -50,13 +49,13 @@ const initializePassport = () => {
           };
           return done(null, user);
         }
-        const user = await userModel.findOne({ email: username }).lean();
-        if (!user) return done(null, false, { message: "No se encontró el usuario" });
-        const validation = await isValidPassword(password, user);
+        const user = await userService.getOne({ email: username }).lean();
+        if (!user.payload) return done(null, false, { message: "No se encontró el usuario" });
+        const validation = await isValidPassword(password, user.payload);
 
         if (!validation) return done(null, false, { message: "Contraseña invalida" });
-        const last_connection = await userModel.updateOne({ email: username }, { $set: { last_connection: Date() } });
-        return done(null, user);
+        const last_connection = await userService.update({ email: username }, { $set: { last_connection: Date() } });
+        return done(null, user.payload);
       } catch (error) {
         done(error);
       }
@@ -73,8 +72,8 @@ const initializePassport = () => {
       },
       async (accessToken, refreshToken, profile, done) => {
         try {
-          const user = await userModel.findOne({ email: profile._json.email });
-          if (!user) {
+          const user = await userService.getOne({ email: profile._json.email });
+          if (!user.payload) {
             const newCart = await cartsService.createCart();
             const newUser = {
               first_name: profile._json.name,
@@ -86,10 +85,10 @@ const initializePassport = () => {
               last_connection: Date(),
               cart: newCart.payload._id,
             };
-            const result = await userModel.create(newUser);
-            return done(null, result);
+            const result = await userService.create(newUser);
+            return done(null, result.payload);
           } else {
-            return done(null, user);
+            return done(null, user.payload);
           }
         } catch (error) {
           return done(error);
@@ -137,8 +136,8 @@ const initializePassport = () => {
     done(null, user._id);
   });
   passport.deserializeUser(async (id, done) => {
-    const user = await userModel.findById(id);
-    done(null, user);
+    const user = await userService.getById(id);
+    done(null, user.payload);
   });
 };
 
