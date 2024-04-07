@@ -18,6 +18,7 @@ import loggerRouter from "./routes/logger.js";
 import swaggerUiExpress from "swagger-ui-express";
 import { specs } from "./config/swagger.js";
 import config from "./config/config.js";
+import SocketManager from "./websockets/socketManager.js";
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -45,29 +46,5 @@ const server = app.listen(PORT, () => {
   console.log(`Levantado el servidor ${PORT}`);
 });
 
-const socketServer = new Server(server);
-//Servicio Real Time Products
-socketServer.on("connection", (socket) => {
-  console.log("Cliente Conectado");
-  productsService.getProducts().then((products) => {
-    socketServer.emit("log", products);
-  });
-  socket.on("addProduct", (data) => {
-    data.thumbnails = [];
-    productsService.addProduct(data);
-  });
-  socket.on("deleteProduct", (data) => {
-    productsService.deleteProduct(data).then((result) => console.log(result));
-  });
-});
-//Servicio de chat
-socketServer.on("connection", async (socket) => {
-  const messages = await messagesModel.find();
-  socketServer.emit("log-messages", messages);
-  console.log("Cliente chat conectado");
-  socket.on("new-message", async (data) => {
-    await messagesModel.create(data);
-    const messages = await messagesModel.find();
-    socketServer.emit("log-messages", messages);
-  });
-});
+const socketServer = new SocketManager(server);
+socketServer.enable();
