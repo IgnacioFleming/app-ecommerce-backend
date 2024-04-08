@@ -49,7 +49,7 @@ const initializePassport = () => {
           };
           return done(null, user);
         }
-        const user = await userService.getOne({ email: username }).lean();
+        const user = await userService.getOne({ email: username });
         if (!user.payload) return done(null, false, { message: "No se encontró el usuario" });
         const validation = await isValidPassword(password, user.payload);
 

@@ -4,7 +4,7 @@ class UserManager {
   constructor() {}
   get = async () => {
     try {
-      const users = await userModel.find();
+      const users = await userModel.find().lean();
       return {
         status: "success",
         payload: users,
@@ -16,7 +16,7 @@ class UserManager {
 
   getOne = async (query) => {
     try {
-      const user = await userModel.findOne(query);
+      const user = await userModel.findOne(query).lean();
       return { status: "success", payload: user };
     } catch (error) {
       throw new Error(error);
@@ -25,7 +25,7 @@ class UserManager {
 
   getById = async (id) => {
     try {
-      const user = await userModel.findById(id);
+      const user = await userModel.findById(id).lean();
       return { status: "success", payload: user };
     } catch (error) {
       throw new Error(error);

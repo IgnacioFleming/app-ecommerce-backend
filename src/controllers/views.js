@@ -1,5 +1,4 @@
-import { ticketModel } from "../dao/models/ticket.model.js";
-import { cartsService, productsService, userService } from "../services/index.js";
+import { cartsService, productsService, ticketService, userService } from "../services/index.js";
 const renderHome = (req, res) => {
   res.render("home", {});
 };
@@ -129,7 +128,7 @@ const userHandler = async (req, res) => {
 
 const getTickets = async (req, res) => {
   let order = 1;
-  const tickets = (await ticketModel.find().lean()).map((ticket) => {
+  const tickets = (await ticketService.get()).payload.map((ticket) => {
     return { ...ticket, order: order++ };
   });
   res.render("tickets", { tickets });
