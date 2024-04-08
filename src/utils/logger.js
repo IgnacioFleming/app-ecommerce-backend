@@ -1,4 +1,5 @@
 import winston from "winston";
+import config from "../config/config.js";
 const customLoggerConfig = {
   levels: {
     fatal: 0,
@@ -29,7 +30,7 @@ const prodLogger = winston.createLogger({
 });
 
 export const addLogger = (req, res, next) => {
-  if (process.env.ENVIROMENT === "PROD") {
+  if (config.enviroment.enviroment === "PROD") {
     req.logger = prodLogger;
   } else {
     req.logger = devLogger;
