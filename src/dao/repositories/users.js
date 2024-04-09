@@ -1,6 +1,4 @@
-import MessageDTO from "../dto/message.dto.js";
-
-export default class MessageRepository {
+export default class UsersRepository {
   constructor(dao) {
     this.dao = dao;
   }
@@ -12,6 +10,16 @@ export default class MessageRepository {
       throw new Error(error);
     }
   }
+
+  async getOne(query) {
+    try {
+      const result = await this.dao.getOne(query);
+      return result;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   async getById(id) {
     try {
       const result = await this.dao.getById(id);
@@ -20,18 +28,18 @@ export default class MessageRepository {
       throw new Error(error);
     }
   }
-  async create(message) {
+  async create(user) {
     try {
-      const messageDto = new MessageDTO(message);
-      const result = await this.dao.create(messageDto);
+      const result = await this.dao.create(newUser);
       return result;
     } catch (error) {
       throw new Error(error);
     }
   }
-  async update(id, message) {
+
+  async update(query, update) {
     try {
-      const result = await this.dao.update(id, message);
+      const result = await this.dao.update(query, update);
       return result;
     } catch (error) {
       throw new Error(error);
