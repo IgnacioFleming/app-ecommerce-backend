@@ -75,7 +75,7 @@ const sendEmailToRestorePass = async (req, res) => {
 const restorePass = async (req, res) => {
   if (!req.user) return res.status(400).send({ status: "error", error: "Solicitud inválida, token de autenticacion faltante." });
   const { email } = req.user;
-  const user = await userService.getOne({ email }).lean();
+  const user = await userService.getOne({ email });
   if (!user.payload) return res.status(400).send({ status: "error", error: "Correo de origen inválido" });
   const { password } = req.body;
   const validation = await isValidPassword(password, user.payload);
