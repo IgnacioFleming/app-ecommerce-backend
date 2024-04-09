@@ -8,7 +8,7 @@ const handleLogin = async (req, res) => {
   const token = jwt.sign(user, config.passport.jwt_secret_key, {
     expiresIn: "1h",
   });
-  res.cookie("sessionCookie", token, { maxAge: 3600000, httpOnly: true });
+  res.cookie("sessionCookie", token, { maxAge: 3600000 });
 
   res.send({
     status: "success",
