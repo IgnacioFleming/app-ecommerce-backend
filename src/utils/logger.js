@@ -24,7 +24,7 @@ const devLogger = winston.createLogger({
   transports: [new winston.transports.Console({ level: "debug", format: winston.format.combine(winston.format.colorize({ colors: customLoggerConfig.colors }), winston.format.simple()) })],
 });
 
-const prodLogger = winston.createLogger({
+export const prodLogger = winston.createLogger({
   levels: customLoggerConfig.levels,
   transports: [new winston.transports.Console({ level: "info", format: winston.format.combine(winston.format.colorize({ colors: customLoggerConfig.colors }), winston.format.simple()) }), new winston.transports.File({ level: "error", filename: "errors.log", format: winston.format.simple() })],
 });
