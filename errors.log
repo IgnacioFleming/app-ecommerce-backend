@@ -13104,3 +13104,54 @@ fatal: Ocurrió un error fatal en la ejecucion del proceso.
     message:Error: Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "carts"
 fatal: Ocurrió un error fatal en la ejecucion del proceso. 
     message:Error: Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "carts"
+fatal: Ocurrió un error fatal en la validacion del parametro.
+      message:BSONError: Argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer
+fatal: Ocurrió un error fatal en la ejecucion del proceso. 
+    message:{"message":"Alguno o ambos parametros no corresponden a la clase ObjectId","cause":"Uno o todos los parametros enviados fueron numericos.\n    Se esperaba:\n    * :cid: debe recibir un ObjectId. Se recibió:  undefined.\n    * :pid: debe recibir un ObjectId. Se recibió :  65038d0fb9f0a329d9610205.\n    ","name":"Parametro numerico","code":4}
+fatal: Ocurrió un error fatal en la validacion del parametro.
+      message:BSONError: Argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer
+fatal: Ocurrió un error fatal en la ejecucion del proceso. 
+    message:{"message":"Alguno o ambos parametros no corresponden a la clase ObjectId","cause":"Uno o todos los parametros enviados fueron numericos.\n    Se esperaba:\n    * :cid: debe recibir un ObjectId. Se recibió:  undefined.\n    * :pid: debe recibir un ObjectId. Se recibió :  65038d0fb9f0a329d9610205.\n    ","name":"Parametro numerico","code":4}
+fatal: Ocurrió un error fatal en la validacion del parametro.
+      message:BSONError: Argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer
+fatal: Ocurrió un error fatal en la ejecucion del proceso. 
+    message:{"message":"Alguno o ambos parametros no corresponden a la clase ObjectId","cause":"Uno o todos los parametros enviados fueron numericos.\n    Se esperaba:\n    * :cid: debe recibir un ObjectId. Se recibió:  undefined.\n    * :pid: debe recibir un ObjectId. Se recibió :  65038d0fb9f0a329d9610205.\n    ","name":"Parametro numerico","code":4}
+fatal: Ocurrió un error fatal en la validacion del parametro.
+      message:BSONError: Argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer
+fatal: Ocurrió un error fatal en la ejecucion del proceso. 
+    message:{"message":"Alguno o ambos parametros no corresponden a la clase ObjectId","cause":"Uno o todos los parametros enviados fueron numericos.\n    Se esperaba:\n    * :cid: debe recibir un ObjectId. Se recibió:  undefined.\n    * :pid: debe recibir un ObjectId. Se recibió :  65038d0fb9f0a329d9610205.\n    ","name":"Parametro numerico","code":4}
+fatal: Ocurrió un error fatal en la validacion del parametro.
+      message:BSONError: Argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer
+fatal: Ocurrió un error fatal en la ejecucion del proceso. 
+    message:{"message":"Alguno o ambos parametros no corresponden a la clase ObjectId","cause":"Uno o todos los parametros enviados fueron numericos.\n    Se esperaba:\n    * :cid: debe recibir un ObjectId. Se recibió:  undefined.\n    * :pid: debe recibir un ObjectId. Se recibió :  65038d0fb9f0a329d9610204.\n    ","name":"Parametro numerico","code":4}
+fatal: Ocurrió un error fatal en la validacion del parametro.
+      message:BSONError: Argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer
+fatal: Ocurrió un error fatal en la ejecucion del proceso. 
+    message:{"message":"Alguno o ambos parametros no corresponden a la clase ObjectId","cause":"Uno o todos los parametros enviados fueron numericos.\n    Se esperaba:\n    * :cid: debe recibir un ObjectId. Se recibió:  undefined.\n    * :pid: debe recibir un ObjectId. Se recibió :  65038d0fb9f0a329d9610204.\n    ","name":"Parametro numerico","code":4}
+fatal: Ocurrió un error fatal en la validacion del parametro.
+      message:BSONError: Argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer
+fatal: Ocurrió un error fatal en la ejecucion del proceso. 
+    message:{"message":"Alguno o ambos parametros no corresponden a la clase ObjectId","cause":"Uno o todos los parametros enviados fueron numericos.\n    Se esperaba:\n    * :cid: debe recibir un ObjectId. Se recibió:  undefined.\n    * :pid: debe recibir un ObjectId. Se recibió :  65038d0fb9f0a329d9610204.\n    ","name":"Parametro numerico","code":4}
+fatal: Ocurrió un error fatal en la validacion del parametro.
+      message:BSONError: Argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer
+fatal: Ocurrió un error fatal en la ejecucion del proceso. 
+    message:{"message":"Alguno o ambos parametros no corresponden a la clase ObjectId","cause":"Uno o todos los parametros enviados fueron numericos.\n    Se esperaba:\n    * :cid: debe recibir un ObjectId. Se recibió:  undefined.\n    * :pid: debe recibir un ObjectId. Se recibió :  65038d0fb9f0a329d9610204.\n    ","name":"Parametro numerico","code":4}
+fatal: Ocurrió un error fatal en la validacion del parametro.
+      message:BSONError: Argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer
+fatal: Ocurrió un error fatal en la ejecucion del proceso. 
+    message:{"message":"Alguno o ambos parametros no corresponden a la clase ObjectId","cause":"Uno o todos los parametros enviados fueron numericos.\n    Se esperaba:\n    * :cid: debe recibir un ObjectId. Se recibió:  undefined.\n    * :pid: debe recibir un ObjectId. Se recibió :  65038d0fb9f0a329d9610204.\n    ","name":"Parametro numerico","code":4}
+fatal: Ocurrió un error fatal en la validacion del parametro.
+      message:BSONError: Argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer
+fatal: Ocurrió un error fatal en la ejecucion del proceso. 
+    message:{"message":"Alguno o ambos parametros no corresponden a la clase ObjectId","cause":"Uno o todos los parametros enviados fueron numericos.\n    Se esperaba:\n    * :cid: debe recibir un ObjectId. Se recibió:  undefined.\n    * :pid: debe recibir un ObjectId. Se recibió :  65038d0fb9f0a329d9610204.\n    ","name":"Parametro numerico","code":4}
+fatal: Ocurrió un error fatal en la validacion del parametro.
+      message:BSONError: Argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer
+fatal: Ocurrió un error fatal en la ejecucion del proceso. 
+    message:{"message":"Alguno o ambos parametros no corresponden a la clase ObjectId","cause":"Uno o todos los parametros enviados fueron numericos.\n    Se esperaba:\n    * :cid: debe recibir un ObjectId. Se recibió:  undefined.\n    * :pid: debe recibir un ObjectId. Se recibió :  65038d0fb9f0a329d9610204.\n    ","name":"Parametro numerico","code":4}
+fatal: Ocurrió un error fatal en la validacion del parametro.
+      message:BSONError: Argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer
+fatal: Ocurrió un error fatal en la ejecucion del proceso. 
+    message:{"message":"Alguno o ambos parametros no corresponden a la clase ObjectId","cause":"Uno o todos los parametros enviados fueron numericos.\n    Se esperaba:\n    * :cid: debe recibir un ObjectId. Se recibió:  undefined.\n    * :pid: debe recibir un ObjectId. Se recibió :  65038d0fb9f0a329d9610204.\n    ","name":"Parametro numerico","code":4}
+error: Falló el GET. Revisar parametros cid:661478ed9485c26261f71f8e, pid:65038c7a113efadaace93935 y newQuantity:[object Object]
+error: Falló el GET. Revisar parametros cid:661478ed9485c26261f71f8e, pid:65038d0fb9f0a329d9610207 y newQuantity:[object Object]
+error: Falló el GET. Revisar parametros cid:661478ed9485c26261f71f8e, pid:65038d0fb9f0a329d9610207 y newQuantity:[object Object]
