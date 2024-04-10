@@ -116,7 +116,7 @@ const restorePass = async (req, res) => {
 };
 
 const userHandler = async (req, res) => {
-  const users = await userService.get().lean();
+  const users = await userService.get();
   res.render("users", {
     users: users.payload,
     style: "users.css",
