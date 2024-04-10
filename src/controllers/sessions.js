@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import { mailingService, userService } from "../services/index.js";
 import { createHash, isValidPassword } from "../utils.js";
 import config from "../config/config.js";
+import UserDto from "../dao/dto/user.dto.js";
 
 const handleLogin = async (req, res) => {
   const { user } = req;
@@ -9,10 +10,10 @@ const handleLogin = async (req, res) => {
     expiresIn: "1h",
   });
   res.cookie("sessionCookie", token, { maxAge: 3600000 });
-
+  const dtoUser = new UserDto(user);
   res.send({
     status: "success",
-    description: { message: "Usuario logueado correctamente", token },
+    description: { message: "Usuario logueado correctamente", dtoUser },
   });
 };
 
