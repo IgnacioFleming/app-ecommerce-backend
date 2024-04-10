@@ -25,7 +25,7 @@ class CartManager {
     }
   };
 
-  addProductToCart = async (cartId, productId, quantity = 1) => {
+  addProductToCart = async (cartId, productId, quantity = { quantity: 1 }) => {
     try {
       const product = await productModel.findById(productId);
       if (!product) {
@@ -37,10 +37,10 @@ class CartManager {
       const cart = await cartModel.findOne({ _id: cartId });
       const productIndex = cart.products.findIndex((e) => e.product.toString() === productId);
       if (productIndex === -1) {
-        const newProduct = { product: productId, quantity: quantity };
+        const newProduct = { product: productId, ...quantity };
         cart.products.push(newProduct);
       } else {
-        cart.products[productIndex].quantity += quantity;
+        cart.products[productIndex].quantity += quantity.quantity;
       }
       const updatedCart = await cartModel.updateOne(
         {
@@ -73,11 +73,11 @@ class CartManager {
       }
 
       let productQuantity = cart.products[productIndex].quantity;
-      if (productQuantity > 1) {
-        cart.products[productIndex].quantity--;
-      } else {
-        cart.products.splice(productIndex, 1);
-      }
+      // if (productQuantity > 1) {
+      //   cart.products[productIndex].quantity--;
+      // } else {
+      cart.products.splice(productIndex, 1);
+      // }
       const result = await cartModel.updateOne({ _id: cartId }, cart);
       return { status: "success", payload: result };
     } catch (error) {
