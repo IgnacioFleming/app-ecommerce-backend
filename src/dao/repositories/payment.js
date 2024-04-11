@@ -1,12 +1,13 @@
 import Stripe from "stripe";
 import config from "../../config/config.js";
-
+// const Stripe = require("stripe")(config.stripe.secretApiKey);
 export default class PaymentService {
   constructor() {
-    this.payment = new Stripe(config.stripe.secretApiKey);
+    this.payment = Stripe(config.stripe.secretApiKey);
   }
   async createPaymentIntent(data) {
-    const paymentItent = await this.payment.paymentIntents.create(data);
-    return paymentItent;
+    // console.log(ata);
+    const paymentIntent = await this.payment.paymentIntents.create(data);
+    return paymentIntent;
   }
 }
