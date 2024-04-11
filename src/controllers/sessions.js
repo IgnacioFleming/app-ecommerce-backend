@@ -26,7 +26,7 @@ const handleFailedLogin = async (req, res) => {
 
 const handleGithubCallback = async (req, res) => {
   const { user } = req;
-  const plainUser = user.toObject();
+  const plainUser = user;
 
   const token = jwt.sign(plainUser, config.passport.jwt_secret_key, {
     expiresIn: "1h",
