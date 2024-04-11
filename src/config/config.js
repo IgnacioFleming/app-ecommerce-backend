@@ -33,4 +33,7 @@ export default {
     test_user_password: process.env.TEST_USER_PASSWORD,
   },
   enviroment: { enviroment: process.env.ENVIROMENT, url: process.env.URL },
+  stripe: {
+    secretApiKey: process.env.STRIPE_SECRET_API_KEY,
+  },
 };
