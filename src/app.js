@@ -4,10 +4,7 @@ import cartsRouter from "./routes/carts.js";
 import viewsRouter from "./routes/views.js";
 import usersRouter from "./routes/users.js";
 import __dirname from "./utils.js";
-import { Server } from "socket.io";
 import handlebars from "express-handlebars";
-import { productsService } from "./services/index.js";
-import { messagesModel } from "./dao/models/message.model.js";
 import sessionRouter from "./routes/sessions.js";
 import passport from "passport";
 import initializePassport from "./config/passport.js";
@@ -17,12 +14,13 @@ import { addLogger } from "./utils/logger.js";
 import loggerRouter from "./routes/logger.js";
 import swaggerUiExpress from "swagger-ui-express";
 import { specs } from "./config/swagger.js";
-import config from "./config/config.js";
 import SocketManager from "./websockets/socketManager.js";
+import cors from "cors";
 
 const PORT = process.env.PORT || 8080;
 const app = express();
 
+app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 app.engine("handlebars", handlebars.engine());
 app.set("views", __dirname + "/views");
 app.set("view engine", "handlebars");
