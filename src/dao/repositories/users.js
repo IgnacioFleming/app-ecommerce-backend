@@ -30,7 +30,7 @@ export default class UsersRepository {
   }
   async create(user) {
     try {
-      const result = await this.dao.create(newUser);
+      const result = await this.dao.create(user);
       return result;
     } catch (error) {
       throw new Error(error);
