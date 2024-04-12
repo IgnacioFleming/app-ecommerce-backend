@@ -19,6 +19,14 @@ class TicketManager {
       throw new Error(error);
     }
   };
+  getByPurchaser = async (purchaser) => {
+    try {
+      const purchaserTickets = await ticketModel.find({ email: purchaser }).lean();
+      return { status: "success", payload: purchaserTickets };
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
 }
 
 export default TicketManager;
