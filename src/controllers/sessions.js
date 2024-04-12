@@ -34,7 +34,7 @@ const handleGithubCallback = async (req, res) => {
   });
   res.cookie("sessionCookie", token, { maxAge: 3600000, httpOnly: true });
 
-  res.redirect("/products");
+  res.redirect("http://localhost:5173/products");
 };
 
 const handleRegister = async (req, res) => {
@@ -50,7 +50,8 @@ const handleFailedRegister = async (req, res) => {
 
 const handleLogout = async (req, res) => {
   const updateUserLastConnection = await userService.update({ email: req.user.email }, { $set: { last_connection: Date() } });
-  res.clearCookie("sessionCookie").redirect("/login");
+  console.log("entre al ep");
+  res.clearCookie("sessionCookie").send({ status: "success", message: "User logged out succesfully" });
 };
 
 const sendEmailToRestorePass = async (req, res) => {
