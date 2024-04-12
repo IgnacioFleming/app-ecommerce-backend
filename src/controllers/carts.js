@@ -15,6 +15,7 @@ const createCart = async (req, res) => {
 const getCartById = async (req, res) => {
   try {
     const { cid } = req.params;
+    console.log("paso por la ruta cart", cid);
     const { status, description, payload } = await cartsService.getCartById(cid);
 
     if (status === "success") {
