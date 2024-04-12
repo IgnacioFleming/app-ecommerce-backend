@@ -17,6 +17,7 @@ import { specs } from "./config/swagger.js";
 import SocketManager from "./websockets/socketManager.js";
 import cors from "cors";
 import paymentsRouter from "./routes/payments.js";
+import ticketsRouter from "./routes/tickets.js";
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -38,6 +39,7 @@ app.use(passport.initialize());
 app.use("/api/sessions", sessionRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/users", usersRouter);
+app.use("/api/tickets", ticketsRouter);
 app.use("/api/payments", paymentsRouter);
 app.use(errorHandler);
 app.use("/apidocs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
