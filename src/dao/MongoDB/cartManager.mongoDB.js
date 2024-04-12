@@ -25,7 +25,7 @@ class CartManager {
     }
   };
 
-  addProductToCart = async (cartId, productId) => {
+  addProductToCart = async (cartId, productId, quantity = 1) => {
     try {
       const product = await productModel.findById(productId);
       if (!product) {
@@ -37,10 +37,10 @@ class CartManager {
       const cart = await cartModel.findOne({ _id: cartId });
       const productIndex = cart.products.findIndex((e) => e.product.toString() === productId);
       if (productIndex === -1) {
-        const newProduct = { product: productId, quantity: 1 };
+        const newProduct = { product: productId, quantity: quantity };
         cart.products.push(newProduct);
       } else {
-        cart.products[productIndex].quantity++;
+        cart.products[productIndex].quantity += quantity;
       }
       const updatedCart = await cartModel.updateOne(
         {

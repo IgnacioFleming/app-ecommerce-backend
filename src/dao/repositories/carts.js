@@ -18,9 +18,9 @@ export default class CartsRepository {
       throw new Error(error);
     }
   }
-  async addProductToCart(cid, pid) {
+  async addProductToCart(cid, pid, quantity) {
     try {
-      const result = await this.dao.addProductToCart(cid, pid);
+      const result = await this.dao.addProductToCart(cid, pid, quantity);
       return result;
     } catch (error) {
       throw new Error(error);

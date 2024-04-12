@@ -49,6 +49,7 @@ const addProductToCart = async (req, res, next) => {
   try {
     const { cid } = req.params;
     const { pid } = req.params;
+    const { quantity } = req.body;
     if (objectIdValidation(cid) === false || objectIdValidation(pid) === false) {
       CustomError.createError({
         name: "Parametro numerico",
@@ -61,7 +62,7 @@ const addProductToCart = async (req, res, next) => {
       const product = await productsService.getProductById(pid);
       if (product.payload.owner === req.user.email) return res.status(400).send({ status: "error", error: "Como usuario premium no podés agregar un producto propio" });
     }
-    const { status, description, payload } = await cartsService.addProductToCart(cid, pid);
+    const { status, description, payload } = await cartsService.addProductToCart(cid, pid, quantity);
     if (status === "success") {
       req.logger.http(`Proceso exitoso addProductToCart con parametro ${cid} y ${pid}`);
       req.logger.info(`addProductToCart exitoso`);
