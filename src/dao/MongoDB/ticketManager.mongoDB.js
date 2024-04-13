@@ -21,7 +21,7 @@ class TicketManager {
   };
   getByPurchaser = async (purchaser) => {
     try {
-      const purchaserTickets = await ticketModel.find({ email: purchaser }).lean();
+      const purchaserTickets = await ticketModel.find({ email: purchaser }).populate("products.product").lean();
       return { status: "success", payload: purchaserTickets };
     } catch (error) {
       throw new Error(error);
