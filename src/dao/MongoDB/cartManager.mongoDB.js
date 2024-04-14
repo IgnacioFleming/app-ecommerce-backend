@@ -127,12 +127,14 @@ class CartManager {
     const { payload: cart } = await this.getCartById(cartId);
     if (!cart) return { status: "error", description: "Hay un error en el ID provisto" };
     let amount = 0;
+    let products = [];
     const remainingCart = [];
     await Promise.all(
       cart.products.map(async (e) => {
         if (e.quantity <= e.product.stock) {
           amount += e.quantity * e.product.price;
           e.product.stock -= e.quantity;
+          products.push({ product: e.product, quantity: e.quantity });
           const result = await productModel.updateOne({ _id: e.product._id.toString() }, e.product);
           return;
         } else {
@@ -146,6 +148,7 @@ class CartManager {
       purchase_datetime: new Date().toString(),
       amount,
       purchaser,
+      products,
     };
     const result = await ticketModel.create(newTicket);
     await this.updateProductsOfCart(cartId, remainingCart);
