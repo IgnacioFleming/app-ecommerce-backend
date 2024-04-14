@@ -19,4 +19,13 @@ export default class TicketRepository {
       throw new Error(error);
     }
   }
+
+  async getByPurchaser(purchaser) {
+    try {
+      const result = await this.dao.getByPurchaser(purchaser);
+      return result;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }
