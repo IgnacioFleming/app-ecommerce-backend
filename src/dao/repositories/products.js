@@ -42,4 +42,12 @@ export default class ProductsRepository {
       throw new Error(error);
     }
   }
+  async getCategories(query) {
+    try {
+      const result = await this.dao.getCategories(query);
+      return result;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }

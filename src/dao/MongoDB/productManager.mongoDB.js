@@ -1,3 +1,4 @@
+import { createLogger } from "winston";
 import { productModel } from "../models/product.model.js";
 class ProductManager {
   constructor() {}
@@ -84,6 +85,20 @@ class ProductManager {
     try {
       const deletedProduct = await productModel.deleteOne({ _id: productId });
       return { status: "success", payload: deletedProduct };
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+  async getCategories() {
+    try {
+      const categories = await productModel.aggregate([
+        {
+          $group: {
+            _id: "$category",
+          },
+        },
+      ]);
+      return { status: "success", payload: categories };
     } catch (error) {
       throw new Error(error);
     }

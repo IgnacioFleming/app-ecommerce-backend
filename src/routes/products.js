@@ -5,17 +5,18 @@ import productsController from "../controllers/products.js";
 import { applyPolicy } from "../middlewares/policies/policies.js";
 
 const router = Router();
-
-router.get("/", passportCall("jwt"), applyPolicy(["PUBLIC"]), productsController.getProducts);
-
 router.get("/mockingproducts", productsController.mockingProducts);
+router.use(passportCall("jwt"));
+router.get("/categories", applyPolicy(["PUBLIC"]), productsController.productCategories);
 
-router.get("/:pid", passportCall("jwt"), applyPolicy(["PUBLIC"]), productsController.getProductById);
+router.get("/", applyPolicy(["PUBLIC"]), productsController.getProducts);
 
-router.post("/", passportCall("jwt"), applyPolicy(["ADMIN", "PREMIUM"]), uploader.array("thumbnail"), productsController.addProduct);
+router.get("/:pid", applyPolicy(["PUBLIC"]), productsController.getProductById);
 
-router.put("/:pid", passportCall("jwt"), applyPolicy(["ADMIN", "PREMIUM"]), productsController.updateProduct);
+router.post("/", applyPolicy(["ADMIN", "PREMIUM"]), uploader.array("thumbnail"), productsController.addProduct);
 
-router.delete("/:pid", passportCall("jwt"), applyPolicy(["ADMIN", "PREMIUM"]), productsController.deleteProduct);
+router.put("/:pid", applyPolicy(["ADMIN", "PREMIUM"]), productsController.updateProduct);
+
+router.delete("/:pid", applyPolicy(["ADMIN", "PREMIUM"]), productsController.deleteProduct);
 
 export default router;

@@ -18,7 +18,11 @@ const handleLogin = async (req, res) => {
 };
 
 const showCurrentUser = async (req, res) => {
-  res.send(req.user);
+  const dtoUser = new UserDto(user);
+  res.send({
+    status: "success",
+    description: { message: "Usuario logueado correctamente", user: dtoUser },
+  });
 };
 
 const handleFailedLogin = async (req, res) => {
@@ -35,6 +39,7 @@ const handleGithubCallback = async (req, res) => {
   res.cookie("sessionCookie", token, { maxAge: 3600 * 1000 * 4, httpOnly: true });
 
   res.redirect("http://localhost:5173/products");
+  // res.send({ status: "success", payload: req.user });
 };
 
 const handleRegister = async (req, res) => {

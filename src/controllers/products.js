@@ -153,6 +153,17 @@ const mockingProducts = async (req, res) => {
   }
 };
 
+const productCategories = async (req, res) => {
+  try {
+    const { status, payload } = await productsService.getCategories();
+    res.send({ status, payload });
+  } catch (error) {
+    req.logger.fatal(`Ocurrió un error fatal en la ejecucion del proceso. 
+      message:${error}`);
+    res.status(500).send({ status: "error", description: error.toString() });
+  }
+};
+
 export default {
   getProducts,
   getProductById,
@@ -160,4 +171,5 @@ export default {
   updateProduct,
   deleteProduct,
   mockingProducts,
+  productCategories,
 };
