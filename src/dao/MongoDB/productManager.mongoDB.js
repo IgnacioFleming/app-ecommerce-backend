@@ -1,4 +1,3 @@
-import { createLogger } from "winston";
 import { productModel } from "../models/product.model.js";
 class ProductManager {
   constructor() {}

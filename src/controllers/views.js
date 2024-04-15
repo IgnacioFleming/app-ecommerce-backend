@@ -143,7 +143,6 @@ export default {
   renderProducts,
   renderProfile,
   renderRealTimeProducts,
-  renderRealTimeProducts,
   renderRegister,
   renderForgottenPass,
   restorePass,

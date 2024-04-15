@@ -19,7 +19,7 @@ const shiftUserRole = async (req, res) => {
   } else {
     user.payload.role = "usuario";
   }
-  const result = await userService.update({ _id: uid }, user.payload);
+  await userService.update({ _id: uid }, user.payload);
   res.send({ status: "success", payload: `Se cambió el rol del usuario a '${user.payload.role}'` });
 };
 
@@ -28,7 +28,7 @@ const uploadDocuments = async (req, res) => {
     const keys = Object.keys(req.files);
     let documents = [];
     keys.forEach((k) => {
-      const Array = req.files[k].map((e) => {
+      req.files[k].map((e) => {
         return documents.push({
           name: e.fieldname,
           reference: e.path,
@@ -50,7 +50,7 @@ const getAllUsers = async (req, res) => {
 };
 
 const deleteInactiveUsers = async (req, res) => {
-  const users = await userServide.get();
+  const users = await userService.get();
   if (users.payload.length === 0) return res.status(400).send({ status: "error", payload: "No se encontraron usuarios" });
   const limitDate = Date.now() - 3600 * 1000 * 48;
   let deletedUsers = await Promise.all(
@@ -76,8 +76,14 @@ const deleteInactiveUsers = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   const { id } = req.params;
-  const result = await userService.delete(id);
+  await userService.delete(id);
   res.send({ status: "success", payload: "Usuario eliminado correctamente" });
+};
+
+const uploadProfileImage = async (req, res) => {
+  const { uid } = req.params;
+  const { status, payload } = await userService.uploadProfileImage(uid, req.fileURL);
+  res.send({ status, payload });
 };
 
 export default {
@@ -86,4 +92,5 @@ export default {
   getAllUsers,
   deleteInactiveUsers,
   deleteUser,
+  uploadProfileImage,
 };

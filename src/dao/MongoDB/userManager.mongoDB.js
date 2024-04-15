@@ -56,6 +56,14 @@ class UserManager {
       throw new Error(error);
     }
   };
+  uploadProfileImage = async (id, fileURL) => {
+    try {
+      const updateProfileImage = await userModel.findByIdAndUpdate(id, { $set: { profile_image: fileURL } });
+      return { status: "success", payload: fileURL };
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
 }
 
 export default UserManager;

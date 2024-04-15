@@ -55,7 +55,7 @@ const handleFailedRegister = async (req, res) => {
 };
 
 const handleLogout = async (req, res) => {
-  const updateUserLastConnection = await userService.update({ email: req.user.email }, { $set: { last_connection: Date() } });
+  await userService.update({ email: req.user.email }, { $set: { last_connection: Date() } });
   res.clearCookie("sessionCookie").send({ status: "success", message: "User logged out succesfully" });
 };
 
@@ -70,7 +70,7 @@ const sendEmailToRestorePass = async (req, res) => {
   <p><br/><br/>
   <a href="${config.enviroment.url}/restorePass/${token}"><button>Restablecer Contraseña</button></a>
   `;
-  const result = await mailingService.sendSimpleMail({
+  await mailingService.sendSimpleMail({
     from: config.mailing.user,
     subject: "Restablece tu contraseña",
     to: email,
@@ -89,7 +89,7 @@ const restorePass = async (req, res) => {
   if (validation) return res.status(400).send({ status: "error", error: "La contraseña no puede ser igual a la anterior" });
   const hashedNewPass = await createHash(password);
   const updatedUser = { ...user.payload, password: hashedNewPass };
-  const result = await userService.update({ _id: updatedUser._id }, updatedUser);
+  await userService.update({ _id: updatedUser._id }, updatedUser);
   res.send({ status: "success", payload: "Se restableción con exito su contraseña" });
 };
 

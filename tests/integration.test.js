@@ -4,7 +4,6 @@ import { generateMockedProduct } from "../src/mocks/products.js";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import { userModel } from "../src/dao/models/user.model.js";
-
 const connection = mongoose.connect("mongodb+srv://ifleming816:Ricardo55,.@codercluster.zf1jrhg.mongodb.net/test");
 
 const expect = chai.expect;
