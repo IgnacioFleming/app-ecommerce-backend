@@ -86,6 +86,13 @@ const uploadProfileImage = async (req, res) => {
   res.send({ status, payload });
 };
 
+const getProfileImage = async (req, res) => {
+  const { uid } = req.params;
+  console.log(uid);
+  const { status, payload } = await userService.getProfileImage(uid);
+  res.send({ status, payload });
+};
+
 export default {
   shiftUserRole,
   uploadDocuments,
@@ -93,4 +100,5 @@ export default {
   deleteInactiveUsers,
   deleteUser,
   uploadProfileImage,
+  getProfileImage,
 };

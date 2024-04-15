@@ -64,6 +64,14 @@ class UserManager {
       throw new Error(error);
     }
   };
+  getProfileImage = async (id) => {
+    try {
+      const user = await userModel.findById(id);
+      return { status: "success", payload: user.profile_image };
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
 }
 
 export default UserManager;
