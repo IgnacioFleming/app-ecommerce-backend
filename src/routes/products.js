@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { uploader } from "../utils.js";
 import { passportCall } from "../middlewares/auth/passportCall.js";
 import productsController from "../controllers/products.js";
 import { applyPolicy } from "../middlewares/policies/policies.js";
+import { uploadMiddleware } from "../middlewares/upload/uploader.js";
 
 const router = Router();
 router.get("/mockingproducts", productsController.mockingProducts);
@@ -13,7 +13,7 @@ router.get("/", applyPolicy(["PUBLIC"]), productsController.getProducts);
 
 router.get("/:pid", applyPolicy(["PUBLIC"]), productsController.getProductById);
 
-router.post("/", applyPolicy(["ADMIN", "PREMIUM"]), uploader.single("thumbnail"), productsController.addProduct);
+router.post("/", applyPolicy(["ADMIN", "PREMIUM"]), uploadMiddleware({ filename: "thumbnail" }), productsController.addProduct);
 
 router.put("/:pid", applyPolicy(["ADMIN", "PREMIUM"]), productsController.updateProduct);
 
