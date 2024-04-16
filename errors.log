@@ -13286,3 +13286,12 @@ fatal: Ocurrió un error fatal en la ejecucion del proceso.
     message:Error: Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "carts"
 fatal: Ocurrió un error fatal en la ejecucion del proceso. 
     message:Error: Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "carts"
+fatal: Ocurrió un error fatal en la ejecucion del proceso. 
+    message:Error: Error: MongoServerError: E11000 duplicate key error collection: ecommerce.products index: code_1 dup key: { code: "af1002" }
+fatal: Ocurrió un error fatal en la ejecucion del proceso. 
+    message:Error: Error: MongoServerError: E11000 duplicate key error collection: ecommerce.products index: code_1 dup key: { code: "af1002" }
+fatal: Ocurrió un error fatal en la ejecucion del proceso. 
+    message:Error: Error: MongoServerError: E11000 duplicate key error collection: ecommerce.products index: code_1 dup key: { code: "af1002asd" }
+fatal: Ocurrió un error fatal en la ejecucion del proceso. 
+    message:Error: Error: MongoServerError: E11000 duplicate key error collection: ecommerce.products index: code_1 dup key: { code: "af1002asdfgsfdasdfa" }
+error: Falló el GET.
