@@ -18,7 +18,7 @@ const handleLogin = async (req, res) => {
 };
 
 const showCurrentUser = async (req, res) => {
-  const dtoUser = new UserDto(user);
+  const dtoUser = new UserDto(req.user);
   res.send({
     status: "success",
     description: { message: "Usuario logueado correctamente", user: dtoUser },
@@ -36,7 +36,8 @@ const handleGithubCallback = async (req, res) => {
   const token = jwt.sign(plainUser, config.passport.jwt_secret_key, {
     expiresIn: "1h",
   });
-  res.cookie("sessionCookie", token, { maxAge: 3600 * 1000 * 4, httpOnly: true });
+
+  res.cookie("sessionCookie", token, { maxAge: 3600000, httpOnly: true });
 
   res.redirect("http://localhost:5173/products");
   // res.send({ status: "success", payload: req.user });
