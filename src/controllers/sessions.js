@@ -56,7 +56,6 @@ const handleFailedRegister = async (req, res) => {
 
 const handleLogout = async (req, res) => {
   const updateUserLastConnection = await userService.update({ email: req.user.email }, { $set: { last_connection: Date() } });
-  console.log("entre al ep");
   res.clearCookie("sessionCookie").send({ status: "success", message: "User logged out succesfully" });
 };
 

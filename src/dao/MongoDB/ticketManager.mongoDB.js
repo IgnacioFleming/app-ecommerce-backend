@@ -4,7 +4,7 @@ class TicketManager {
   constructor() {}
   get = async () => {
     try {
-      const tickets = await ticketModel.find().lean();
+      const tickets = await ticketModel.find().populate("products.product").lean();
       return { status: "success", payload: tickets };
     } catch (error) {
       throw new Error(error);
@@ -21,7 +21,7 @@ class TicketManager {
   };
   getByPurchaser = async (purchaser) => {
     try {
-      const purchaserTickets = await ticketModel.find({ email: purchaser }).populate("products.product").lean();
+      const purchaserTickets = await ticketModel.find({ purchaser }).populate("products.product").lean();
       return { status: "success", payload: purchaserTickets };
     } catch (error) {
       throw new Error(error);
