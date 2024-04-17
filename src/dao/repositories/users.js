@@ -53,4 +53,12 @@ export default class UsersRepository {
       throw new Error(error);
     }
   }
+  async uploadProfileImage(id, fileURL) {
+    try {
+      const result = await this.dao.uploadProfileImage(id, fileURL);
+      return result;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }

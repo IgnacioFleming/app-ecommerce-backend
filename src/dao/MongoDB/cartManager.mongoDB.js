@@ -71,13 +71,8 @@ class CartManager {
           description: "El id provisto no corresponde a un producto existente en el carrito",
         };
       }
-
-      let productQuantity = cart.products[productIndex].quantity;
-      // if (productQuantity > 1) {
-      //   cart.products[productIndex].quantity--;
-      // } else {
+      cart.products[productIndex].quantity;
       cart.products.splice(productIndex, 1);
-      // }
       const result = await cartModel.updateOne({ _id: cartId }, cart);
       return { status: "success", payload: result };
     } catch (error) {
@@ -135,7 +130,7 @@ class CartManager {
           amount += e.quantity * e.product.price;
           e.product.stock -= e.quantity;
           products.push({ product: e.product, quantity: e.quantity });
-          const result = await productModel.updateOne({ _id: e.product._id.toString() }, e.product);
+          await productModel.updateOne({ _id: e.product._id.toString() }, e.product);
           return;
         } else {
           remainingCart.push(e);

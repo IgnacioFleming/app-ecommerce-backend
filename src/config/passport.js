@@ -54,7 +54,7 @@ const initializePassport = () => {
         const validation = await isValidPassword(password, user.payload);
 
         if (!validation) return done(null, false, { message: "Contraseña invalida" });
-        const last_connection = await userService.update({ email: username }, { $set: { last_connection: Date() } });
+        await userService.update({ email: username }, { $set: { last_connection: Date() } });
         return done(null, user.payload);
       } catch (error) {
         done(error);
