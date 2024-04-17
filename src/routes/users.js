@@ -15,6 +15,8 @@ router.post("/:uid/documents", passportCall("jwt"), uploader.fields(multerCatego
 
 router.put("/uploadProfileImage/:uid", uploadMiddleware({ filename: "profileImage" }), usersController.uploadProfileImage);
 
+router.get("/profileImage/:uid", usersController.getProfileImage);
+
 router.use(applyPolicy(["ADMIN"]));
 
 router.put("/premium/:uid", usersController.shiftUserRole);

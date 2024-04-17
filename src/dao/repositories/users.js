@@ -61,4 +61,12 @@ export default class UsersRepository {
       throw new Error(error);
     }
   }
+  async getProfileImage(id) {
+    try {
+      const result = await this.dao.getProfileImage(id);
+      return result;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }
