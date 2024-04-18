@@ -18,11 +18,12 @@ import SocketManager from "./websockets/socketManager.js";
 import cors from "cors";
 import paymentsRouter from "./routes/payments.js";
 import ticketsRouter from "./routes/tickets.js";
+import { corsOptions } from "./config/cors.js";
 
 const PORT = process.env.PORT || 8080;
 const app = express();
 
-app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
+app.use(cors(corsOptions));
 app.engine("handlebars", handlebars.engine());
 app.set("views", __dirname + "/views");
 app.set("view engine", "handlebars");

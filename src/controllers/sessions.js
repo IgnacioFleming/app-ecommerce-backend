@@ -9,7 +9,7 @@ const handleLogin = async (req, res) => {
   const token = jwt.sign(user, config.passport.jwt_secret_key, {
     expiresIn: "1h",
   });
-  res.cookie("sessionCookie", token, { maxAge: 3600000 });
+  res.cookie("sessionCookie", token, { maxAge: 3600000, httpOnly: true, sameSite: config.enviroment.enviroment === "production" ? "none" : "lax", secure: config.enviroment.enviroment === "production" });
   const dtoUser = new UserDto(user);
   res.send({
     status: "success",
