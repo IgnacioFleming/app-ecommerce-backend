@@ -60,8 +60,10 @@ const addProduct = async (req, res, next) => {
         code: EErrors.INVALID_TYPES_ERROR,
       });
     }
-    if (req.file) {
-      newProduct.thumbnails = req.file.path;
+    if (req.fileURL) {
+      newProduct.thumbnails = req.fileURL;
+    } else {
+      newProduct.thumbnails = "https://res.cloudinary.com/dah7yxmc5/image/upload/v1736278447/Eccomerce/Products/product-default_wjmlm4.png";
     }
 
     if (req.user.role === "premium") {
