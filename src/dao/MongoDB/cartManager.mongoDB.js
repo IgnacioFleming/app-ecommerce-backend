@@ -140,7 +140,7 @@ class CartManager {
     );
     const newTicket = {
       code: new mongoose.Types.ObjectId(),
-      purchase_datetime: new Date().toString(),
+      purchase_datetime: new Date(),
       amount,
       purchaser,
       products,

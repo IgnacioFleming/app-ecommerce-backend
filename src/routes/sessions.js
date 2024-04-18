@@ -12,7 +12,7 @@ router.get("/failedLogin", sessionsController.handleFailedLogin);
 
 router.get("/github", passport.authenticate("github", { scope: ["user:email"] }), async (req, res) => {});
 
-router.get("/githubCallback", passport.authenticate("github", { session: false, failureRedirect: "/api/sessions/login" }), sessionsController.handleGithubCallback);
+router.get("/githubCallback", passport.authenticate("github", { session: false }), sessionsController.handleGithubCallback);
 
 router.post("/register", passportCall("register"), sessionsController.handleRegister);
 
