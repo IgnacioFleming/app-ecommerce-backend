@@ -37,9 +37,7 @@ const handleGithubCallback = async (req, res) => {
     expiresIn: "1h",
   });
 
-  res.cookie("sessionCookie", token, { maxAge: 3600000, httpOnly: true, sameSite: config.enviroment.enviroment === "production" ? "none" : "lax", secure: config.enviroment.enviroment === "production" });
-
-  res.redirect(`${config.enviroment.clientUrl}/products`);
+  res.redirect(`${config.enviroment.clientUrl}/auth?token=${token}`);
 };
 
 const handleRegister = async (req, res) => {
