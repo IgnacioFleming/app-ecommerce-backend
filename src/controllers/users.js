@@ -88,7 +88,6 @@ const uploadProfileImage = async (req, res) => {
 
 const getProfileImage = async (req, res) => {
   const { uid } = req.params;
-  console.log(uid);
   const { status, payload } = await userService.getProfileImage(uid);
   res.send({ status, payload });
 };

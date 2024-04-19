@@ -62,7 +62,6 @@ const initializePassport = () => {
       }
     })
   );
-  console.log(config.passport.clientId);
   passport.use(
     "github",
     new GitHubStrategy(
