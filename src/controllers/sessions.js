@@ -39,7 +39,7 @@ const handleGithubCallback = async (req, res) => {
 
   res.cookie("sessionCookie", token, { maxAge: 3600000, httpOnly: true });
 
-  res.redirect("http://localhost:5173/products");
+  res.redirect(`${config.enviroment.clientUrl}/products`);
 };
 
 const handleRegister = async (req, res) => {
