@@ -26,7 +26,7 @@ export const passportCall = (strategy) => {
             error: ${info.message ? info.message : info.toString()},
           }`);
 
-        return res.redirect("/login");
+        return res.json({ status: "error", payload: "Unauthorized" });
       }
       req.user = user;
       next();
