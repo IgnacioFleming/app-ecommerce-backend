@@ -46,8 +46,8 @@ Welcome to the **E-commerce App Backend**, a robust and scalable API for managin
 1. **Clone the repository:**
 
 ```bash
-git clone https://github.com/IgnacioFleming/curso-backend.git
-cd curso-backend
+git clone https://github.com/IgnacioFleming/app-ecommerce-backend.git
+cd app-ecommerce-backend
 ```
 
 2. **Install dependencies:**
