@@ -94,7 +94,7 @@ src/
 ├── config/           # Configuration files (passport, mongoose, etc.)
 ├── controllers/      # Business logic and request handling
 ├── middlewares/      # Express middlewares (auth, error handling)
-├── models/           # Mongoose schemas and models
+├── dao/              # Mongoose schemas and models
 ├── routes/           # API endpoints
 ├── services/         # External services (Cloudinary, Nodemailer, Stripe)
 ├── utils/            # Utility functions
@@ -121,7 +121,7 @@ http://localhost:8080/api/docs
 |  GET   |         `/api/products`         |  Retrieve all products  |
 |  POST  |          `/api/carts`           |    Create a new cart    |
 |  POST  | `/api/carts/:cid/products/:pid` |   Add product to cart   |
-|  POST  |         `/api/payment`          | Initiate Stripe payment |
+|  POST  |    `/create-payment-intent`     | Initiate Stripe payment |
 
 (Authentication required for most operations)
 
