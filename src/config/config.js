@@ -23,7 +23,7 @@ export default {
     test_user_email: process.env.TEST_USER_EMAIL,
     test_user_password: process.env.TEST_USER_PASSWORD,
   },
-  enviroment: { enviroment: options.env === "dev" ? "develop" : "production", url: process.env.URL },
+  enviroment: { enviroment: options.env === "dev" ? "develop" : "production", url: process.env.URL, clientUrl: options.env === "dev" ? process.env.DEV_CLIENT_URL : process.env.PROD_CLIENT_URL },
   stripe: {
     secretApiKey: process.env.STRIPE_SECRET_API_KEY,
   },
