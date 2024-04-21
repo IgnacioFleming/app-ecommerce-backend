@@ -9,11 +9,11 @@ const handleLogin = async (req, res) => {
   const token = jwt.sign(user, config.passport.jwt_secret_key, {
     expiresIn: "1h",
   });
-  res.cookie("sessionCookie", token, { maxAge: 3600000, httpOnly: true, sameSite: config.enviroment.enviroment === "production" ? "none" : "lax", secure: config.enviroment.enviroment === "production" });
+
   const dtoUser = new UserDto(user);
   res.send({
     status: "success",
-    description: { message: "Usuario logueado correctamente", dtoUser },
+    payload: { message: "Usuario logueado correctamente", dtoUser, token },
   });
 };
 
@@ -55,7 +55,7 @@ const handleFailedRegister = async (req, res) => {
 
 const handleLogout = async (req, res) => {
   await userService.update({ email: req.user.email }, { $set: { last_connection: Date() } });
-  res.clearCookie("sessionCookie").send({ status: "success", message: "User logged out succesfully" });
+  res.send({ status: "success", message: "User logged out succesfully" });
 };
 
 const sendEmailToRestorePass = async (req, res) => {
