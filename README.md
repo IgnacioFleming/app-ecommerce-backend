@@ -93,8 +93,10 @@ Server will start on `http://localhost:8080` by default.
 src/
 ├── config/           # Configuration files (passport, mongoose, etc.)
 ├── controllers/      # Business logic and request handling
-├── middlewares/      # Express middlewares (auth, error handling)
 ├── dao/              # Mongoose schemas and models
+├── docs/             # API documentation with Swagger
+├── middlewares/      # Express middlewares (auth, error handling)
+├── mocks/            # Generation of mocked data for test
 ├── routes/           # API endpoints
 ├── services/         # External services (Cloudinary, Nodemailer, Stripe)
 ├── utils/            # Utility functions
