@@ -62,6 +62,25 @@ const initializePassport = () => {
       }
     })
   );
+
+  passport.use(
+    "demo-login",
+    new LocalStrategy({ usernameField: "email" }, async (username, password, done) => {
+      try {
+          const user = {
+            email: username,
+            status: "active",
+            role: "admin",
+            first_name: "Admin_User",
+            _id: new ObjectId(),
+          };
+          return done(null, user);
+      } catch (error) {
+        done(error);
+      }
+    })
+  );
+
   passport.use(
     "github",
     new GitHubStrategy(

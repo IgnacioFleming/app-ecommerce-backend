@@ -6,6 +6,8 @@ const router = Router();
 
 router.post("/login", passportCall("login"), sessionsController.handleLogin);
 
+router.post("/demo-login", passportCall("demo-login"), sessionsController.handleLogin);
+
 router.get("/current", passportCall("jwt"), sessionsController.showCurrentUser);
 
 router.get("/failedLogin", sessionsController.handleFailedLogin);
